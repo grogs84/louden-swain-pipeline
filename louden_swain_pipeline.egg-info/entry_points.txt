@@ -1,0 +1,2 @@
+[console_scripts]
+louden-swain-pipeline = swainpipe.cli:app

@@ -1,0 +1,6 @@
+{
+  "last_completed_step": "clean",
+  "input_path": "data/test.csv",
+  "output_dir": "output",
+  "state_path": "logs/pipeline_state.json"
+}

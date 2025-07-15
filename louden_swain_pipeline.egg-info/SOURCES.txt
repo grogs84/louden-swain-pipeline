@@ -1,0 +1,13 @@
+pyproject.toml
+louden_swain_pipeline.egg-info/PKG-INFO
+louden_swain_pipeline.egg-info/SOURCES.txt
+louden_swain_pipeline.egg-info/dependency_links.txt
+louden_swain_pipeline.egg-info/entry_points.txt
+louden_swain_pipeline.egg-info/requires.txt
+louden_swain_pipeline.egg-info/top_level.txt
+swainpipe/__init__.py
+swainpipe/cli.py
+swainpipe/pipeline.py
+swainpipe/state.py
+swainpipe/steps/__init__.py
+swainpipe/steps/clean.py

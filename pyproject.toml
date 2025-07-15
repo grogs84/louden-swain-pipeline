@@ -1,0 +1,16 @@
+[project]
+name="louden-swain-pipeline"
+version = "0.1.0"
+description = "A data pipeline for the wrestling app Louden Swain"
+dependencies = [
+    "pandas",
+    "typer[all]",
+    "rich"
+]
+
+[project.scripts]
+louden-swain-pipeline = "swainpipe.cli:app"
+
+[tool.setuptools.packages.find]
+include = ["swainpipe*"]
+exclude = ["data*", "logs*", "output*"]
