@@ -2,22 +2,27 @@ import logging
 import json
 import pandas as pd
 from pathlib import Path
-from .steps import clean
+from .steps import prep, drop_cols, convert_to_csv, create_name, manual_edits
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+PROJECT_ROOT = Path(__file__).parent.parent
+DATA_DIR = PROJECT_ROOT / "data/"
+# RAW_FILE = "raw_data.xlsx"
 
 class Pipeline:
     STEPS = [
-        "clean",
-        # "process_data",
-        # "save_results"
+        "convert_to_csv",
+        "prep",
+        "drop_cols",
+        "manual_edits",
+        "create_name",
     ]
 
-    def __init__(self, input_path: Path, output_dir: Path, state_path: Path = Path("logs/pipeline_state.json")):
-        self.input_path = input_path
-        self.output_dir = output_dir
+    def __init__(self, input_file: Path, output_dir: Path, state_path: Path = Path("logs/pipeline_state.json")):
+        self.input_file = DATA_DIR / input_file
+        self.output_dir = PROJECT_ROOT / output_dir
         self.state_path = state_path
         self.output_dir.mkdir(parents=True, exist_ok=True)
         self.state_path.parent.mkdir(parents=True, exist_ok=True)
@@ -27,7 +32,7 @@ class Pipeline:
     @classmethod
     def from_saved_state(cls):
         state = cls.load_state_file()
-        return cls(Path(state['input_path']), Path(state['output_dir']), Path(state['state_path']))
+        return cls(Path(state['input_file']), Path(state['output_dir']), Path(state['state_path']))
 
 
     @staticmethod
@@ -42,7 +47,7 @@ class Pipeline:
             return json.loads(self.state_path.read_text())
         return {
             "last_completed_step": None,
-            "input_path": str(self.input_path),
+            "input_file": str(self.input_file),
             "output_dir": str(self.output_dir),
             "state_path": str(self.state_path)
         }
@@ -57,18 +62,19 @@ class Pipeline:
             self.state_path.unlink()
         self.state = {
             "last_completed_step": None,
-            "input_path": str(self.input_path),
+            "input_file": str(self.input_file),
             "output_dir": str(self.output_dir),
             "state_path": str(self.state_path)
         }
-        
+
     def save_results(self, df: pd.DataFrame, step_name: str):
         output_file = self.output_dir / f"{step_name}_results.csv"
         df.to_csv(output_file, index=False)
         self.logger.info(f"Results saved to {output_file}")
 
     def run(self):
-        df = pd.read_csv(self.input_path)
+        self.logger.info(f"Starting pipeline with input: {self.input_file} and output: {self.output_dir}")
+        df = pd.read_excel(self.input_file)
 
         start_index = 0
         if self.state['last_completed_step']:
@@ -89,6 +95,23 @@ class Pipeline:
             self.save_results(df, step_name)
             self._save_state(step_name)
 
+    def step_convert_to_csv(self, df: pd.DataFrame) -> pd.DataFrame:
+        """Convert input data to CSV format."""
+        convert_to_csv.run(df)
+        return df
 
-    def step_clean(self, df: pd.DataFrame) -> pd.DataFrame:
-        return clean.run(df)
+    def step_prep(self, df: pd.DataFrame) -> pd.DataFrame:
+        """Perform initial cleaning steps on the DataFrame."""
+        return prep.run(df)
+    
+    def step_drop_cols(self, df: pd.DataFrame) -> pd.DataFrame:
+        """Drop unnecessary columns from the DataFrame."""
+        return drop_cols.run(df)
+
+    def step_create_name(self, df: pd.DataFrame) -> pd.DataFrame:
+        """Create name columns by concatenating first and last names."""
+        return create_name.run(df)
+    
+    def step_manual_edits(self, df: pd.DataFrame) -> pd.DataFrame:
+        """Perform manual edits on the DataFrame."""
+        return manual_edits.run(df)
