@@ -73,7 +73,7 @@ def wrestlers_w_same_id(df: pd.DataFrame) -> pd.DataFrame:
     Find all wrestlers with the same wrestler ID and return their rows. 
     """
     # james|blair	
-    df.loc[df.match_id == 33, 'l_wrestler_id'] = 1.5
+    df.loc[df.match_id == 33, 'l_wrestler_id'] = 9999999.0
     df.loc[df.match_id == 33, 'w_wrestler_id'] = 49064.0
 
     # frank|jordan

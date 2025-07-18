@@ -153,9 +153,13 @@ data/*.csv
 data/*.xlsx
 output/*.csv
 output/*.xlsx
+output/*.duckdb
 logs/*.csv
 logs/*.xlsx
 logs/*.json
+
+# DuckDB database files
+*.duckdb
 
 # Ignore virtual environment if not already covered above
 .venv/

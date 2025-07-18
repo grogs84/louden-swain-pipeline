@@ -5,3 +5,4 @@ Summary: A data pipeline for the wrestling app Louden Swain
 Requires-Dist: pandas
 Requires-Dist: typer[all]
 Requires-Dist: rich
+Requires-Dist: duckdb

@@ -5,7 +5,8 @@ description = "A data pipeline for the wrestling app Louden Swain"
 dependencies = [
     "pandas",
     "typer[all]",
-    "rich"
+    "rich",
+    "duckdb"
 ]
 
 [project.scripts]
