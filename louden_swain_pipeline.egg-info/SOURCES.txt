@@ -10,4 +10,9 @@ swainpipe/cli.py
 swainpipe/pipeline.py
 swainpipe/state.py
 swainpipe/steps/__init__.py
-swainpipe/steps/clean.py
+swainpipe/steps/convert_to_csv.py
+swainpipe/steps/create_name.py
+swainpipe/steps/create_participant_id.py
+swainpipe/steps/drop_cols.py
+swainpipe/steps/manual_edits.py
+swainpipe/steps/prep.py
