@@ -1,0 +1,5 @@
+match_id,year,sex,div,wt,w_wrestler_id,l_wrestler_id,w_first,w_last,w_school,l_first,l_last,l_school,round,type,w_score,l_score,min,sec,ot,w_seed,l_seed,type_notes,notes
+10,2023,m,varsity,125,2001.0,2002.0,john,doe,school x,jane,smith,school y,finals,decision,7.0,5.0,5.0,30.0,1.0,1.0,2.0,overtime match,great match
+11,2023,f,varsity,110,2003.0,,sarah,connor,school z,,,,,bye,,,,,,,,,bye round
+12,2024,m,jv,140,2001.0,2004.0,john,doe,school x,mike,taylor,school w,quarter,pin,0.0,0.0,1.0,45.0,,2.0,3.0,quick pin,
+13,2024,m,varsity,135,,2002.0,,doe,school x,jane,smith,school y,semi,decision,4.0,6.0,8.0,0.0,,4.0,1.0,,close match

@@ -1,6 +1,6 @@
 {
   "last_completed_step": "normalize_data",
-  "input_file": "/home/runner/work/louden-swain-pipeline/louden-swain-pipeline/data/wrestling_test.xlsx",
-  "output_dir": "/home/runner/work/louden-swain-pipeline/louden-swain-pipeline/output",
+  "input_file": "/home/runner/work/louden-swain-pipeline/louden-swain-pipeline/data/edge_case_test.xlsx",
+  "output_dir": "/home/runner/work/louden-swain-pipeline/louden-swain-pipeline/output_edge",
   "state_path": "logs/pipeline_state.json"
 }

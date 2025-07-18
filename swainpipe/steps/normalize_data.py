@@ -16,12 +16,13 @@ and maintains referential integrity.
 """
 
 
-def run(df: pd.DataFrame) -> pd.DataFrame:
+def run(df: pd.DataFrame, output_dir: Path = None) -> pd.DataFrame:
     """
     Normalize the input DataFrame into separate tables and save as CSV files.
     
     Parameters:
     df (pd.DataFrame): The cleaned DataFrame from previous pipeline steps.
+    output_dir (Path): Directory to save the normalized CSV files. Defaults to "output".
     
     Returns:
     pd.DataFrame: The original DataFrame (unchanged for pipeline continuity).
@@ -34,7 +35,8 @@ def run(df: pd.DataFrame) -> pd.DataFrame:
     match_participants_df = create_match_participants_table(df)
     
     # Save tables to CSV files in the output directory
-    output_dir = Path("output")
+    if output_dir is None:
+        output_dir = Path("output")
     output_dir.mkdir(exist_ok=True)
     
     wrestlers_df.to_csv(output_dir / "wrestlers.csv", index=False)

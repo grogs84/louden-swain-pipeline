@@ -119,4 +119,4 @@ class Pipeline:
     
     def step_normalize_data(self, df: pd.DataFrame) -> pd.DataFrame:
         """Normalize data into separate tables and save as CSV files."""
-        return normalize_data.run(df)
+        return normalize_data.run(df, self.output_dir)
