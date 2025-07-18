@@ -148,10 +148,13 @@ cython_debug/
 # VS Code settings
 .vscode/
 
-# Data pipeline directories - keep structure but ignore CSV files
+# Data pipeline directories - keep structure but ignore CSV and Excel files
 data/*.csv
+data/*.xlsx
 output/*.csv
+output/*.xlsx
 logs/*.csv
+logs/*.xlsx
 logs/*.json
 
 # Ignore virtual environment if not already covered above
