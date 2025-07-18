@@ -2,7 +2,7 @@ import logging
 import json
 import pandas as pd
 from pathlib import Path
-from .steps import prep, drop_cols, convert_to_csv, create_name, manual_edits
+from .steps import prep, drop_cols, convert_to_csv, create_name, manual_edits, create_participant_id
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -18,6 +18,7 @@ class Pipeline:
         "drop_cols",
         "manual_edits",
         "create_name",
+        "create_participant_id"
     ]
 
     def __init__(self, input_file: Path, output_dir: Path, state_path: Path = Path("logs/pipeline_state.json")):
@@ -115,3 +116,9 @@ class Pipeline:
     def step_manual_edits(self, df: pd.DataFrame) -> pd.DataFrame:
         """Perform manual edits on the DataFrame."""
         return manual_edits.run(df)
+    
+    def step_create_participant_id(self, df: pd.DataFrame) -> pd.DataFrame:
+        """Create unique participant IDs for each wrestler."""
+        df, part_df = create_participant_id.run(df)
+        self.save_results(part_df, "participant_id_df")
+        return df

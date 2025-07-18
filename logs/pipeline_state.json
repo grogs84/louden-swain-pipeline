@@ -1,5 +1,5 @@
 {
-  "last_completed_step": "create_name",
+  "last_completed_step": "create_participant_id",
   "input_file": "/home/mattg/projects/louden-swain-pipeline/data/raw_data.xlsx",
   "output_dir": "/home/mattg/projects/louden-swain-pipeline/output",
   "state_path": "logs/pipeline_state.json"

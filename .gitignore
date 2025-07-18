@@ -148,10 +148,8 @@ cython_debug/
 # VS Code settings
 .vscode/
 
-# Data pipeline directories - keep structure but ignore content
-data/*
-!data/.gitkeep
-output/*
-!output/.gitkeep
-logs/*
-!logs/.gitkeep
+# Data pipeline directories - keep structure but ignore CSV files
+data/*.csv
+output/*.csv
+logs/*.csv
+logs/*.json

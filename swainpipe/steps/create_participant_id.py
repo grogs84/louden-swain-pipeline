@@ -39,12 +39,38 @@ from _union
 def run(df: pd.DataFrame) -> pd.DataFrame:
     participant_df = create_participant_df(df)
     participant_df['participant_id'] = [str(uuid.uuid4()) for _ in range(len(participant_df))]
+    logging.info(f"Created {len(participant_df)} unique participant IDs.")
+    # Merge participant_id for winning wrestler
+    df = df.merge(
+        participant_df[['name', 'school', 'weight', 'year', 'participant_id']].rename(
+            columns={
+                'name': 'w_name',
+                'school': 'w_school',
+                'participant_id': 'w_participant_id'
+            }
+        ),
+        on=['w_name', 'w_school', 'weight', 'year'],
+        how='left'
+    )
 
+    # Merge participant_id for losing wrestler
+    df = df.merge(
+        participant_df[['name', 'school', 'weight', 'year', 'participant_id']].rename(
+            columns={
+                'name': 'l_name',
+                'school': 'l_school',
+                'participant_id': 'l_participant_id'
+            }
+        ),
+        on=['l_name', 'l_school', 'weight', 'year'],
+        how='left'
+    )
+    return df, participant_df
 
 
 def create_participant_df(df: pd.DataFrame) -> pd.DataFrame:
-    w_union = df[['w_name', 'w_school', 'weight', 'year']].drop_duplicates()
-    l_union = df[['l_name', 'l_school', 'weight', 'year']].drop_duplicates()
-    w_union = w_union.rename(columns={'w_name': 'name', 'w_school': 'school'})
-    l_union = l_union.rename(columns={'l_name': 'name', 'l_school': 'school'})
+    w_union = df[['w_name', 'w_school', 'weight', 'year', 'w_seed', 'w_wrestler_id']].drop_duplicates()
+    l_union = df[['l_name', 'l_school', 'weight', 'year', 'l_seed', 'l_wrestler_id']].drop_duplicates()
+    w_union = w_union.rename(columns={'w_name': 'name', 'w_school': 'school', 'w_seed': 'seed', 'w_wrestler_id': 'wrestler_id'})
+    l_union = l_union.rename(columns={'l_name': 'name', 'l_school': 'school', 'l_seed': 'seed', 'l_wrestler_id': 'wrestler_id'})
     return pd.concat([w_union, l_union], ignore_index=True).drop_duplicates()

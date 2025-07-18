@@ -23,6 +23,7 @@ def run(df: pd.DataFrame) -> pd.DataFrame:
     df = joe(df)
     df = chris(df)
     df = wrestlers_w_same_id(df)
+    df = seed_fixes(df)
     return df
 
 
@@ -73,15 +74,37 @@ def wrestlers_w_same_id(df: pd.DataFrame) -> pd.DataFrame:
     """
     # james|blair	
     df.loc[df.match_id == 33, 'l_wrestler_id'] = 1.5
-    df.iloc[df.match_id == 33, 'w_wrestler_id'] = 49064.0
+    df.loc[df.match_id == 33, 'w_wrestler_id'] = 49064.0
 
     # frank|jordan
-    df.loc[df.match_id == 3928, 'l_wrestler_id'] = 39622.0
+    df.loc[df.match_id == 3928.0, 'l_wrestler_id'] = 39622.0
 
-    df.loc[df.match_id == 7325, 'l_wrestler_id'] = 12924.0
+    df.loc[df.match_id == 7325.0, 'l_wrestler_id'] = 12924.0
 
     df.loc[df.match_id == 10470, 'w_wrestler_id'] = 140911.0
 
-    df.loc[df.match_id == 18806, 'l_wrestler_id'] = 97172.0
+    df.loc[df.match_id == 20798, 'w_wrestler_id'] = 53016.0
+    df.loc[df.match_id == 20807, 'w_wrestler_id'] = 53016.0
+
+    df.loc[df.match_id == 18806, 'l_wrestler_id'] = 37508.0
+
+    df.loc[df.match_id == 25303, 'w_wrestler_id'] = 94760.0
+
+    df.loc[df.match_id == 25310, 'w_wrestler_id'] = 94760.0
+
+    df.loc[df.match_id == 18807, 'l_wrestler_id'] = 97172.0
+
+    df.loc[df.match_id == 10470, 'w_wrestler_id'] = 40911.0
+
+
+    return df
+
+def seed_fixes(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Apply seed fixes to the DataFrame.
+    """
+    df.loc[df.match_id == 24395, 'l_seed'] = 0.0
+    df.loc[df.match_id == 24395, 'w_seed'] = 2.0
+
 
     return df
