@@ -153,3 +153,6 @@ data/*.csv
 output/*.csv
 logs/*.csv
 logs/*.json
+
+# Ignore virtual environment if not already covered above
+.venv/
