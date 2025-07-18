@@ -2,7 +2,7 @@ import logging
 import json
 import pandas as pd
 from pathlib import Path
-from .steps import prep, drop_cols, convert_to_csv, create_name, manual_edits
+from .steps import prep, drop_cols, convert_to_csv, create_name, manual_edits, normalize_data
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -18,6 +18,7 @@ class Pipeline:
         "drop_cols",
         "manual_edits",
         "create_name",
+        "normalize_data",
     ]
 
     def __init__(self, input_file: Path, output_dir: Path, state_path: Path = Path("logs/pipeline_state.json")):
@@ -115,3 +116,7 @@ class Pipeline:
     def step_manual_edits(self, df: pd.DataFrame) -> pd.DataFrame:
         """Perform manual edits on the DataFrame."""
         return manual_edits.run(df)
+    
+    def step_normalize_data(self, df: pd.DataFrame) -> pd.DataFrame:
+        """Normalize data into separate tables and save as CSV files."""
+        return normalize_data.run(df)
